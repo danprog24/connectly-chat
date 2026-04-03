@@ -2,6 +2,7 @@ package com.dannycode.chatApp.service;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
+    @Autowired
     @Value("${api.key}")
     private String apiKey;
 
