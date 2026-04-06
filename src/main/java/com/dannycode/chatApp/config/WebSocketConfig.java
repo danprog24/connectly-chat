@@ -19,7 +19,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws/websocket")
                 .setAllowedOriginPatterns(
                     "http://localhost:5173",
-                    // "https://connectly-chatz-nave.vercel.app",
                     "https://*.vercel.app",
                     "https://connectly-chat-production.up.railway.app",
                     "https://*.railway.app"

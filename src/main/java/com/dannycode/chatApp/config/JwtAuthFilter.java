@@ -41,6 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         // JWT authentication logic here
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("=== Request path: " + request.getRequestURI());
             filterChain.doFilter(request, response);
             return;
         }
@@ -61,15 +62,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             System.out.println("=== Extracted username: " + username);
         } catch (JwtException e) {
             System.out.println("=== JWT Exception: " + e.getMessage());
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-
-
-        try {
-            username = jwtService.extractUsername(token);
-        } catch (JwtException e) {
             filterChain.doFilter(request, response);
             return;
         }

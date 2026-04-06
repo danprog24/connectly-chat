@@ -13,9 +13,11 @@ public class WebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
+        
+        // setAllowedOriginPatterns instead of setAllowedOrigins for wildcard support
+        config.setAllowedOriginPatterns(List.of(
             "http://localhost:5173",
-            "https://*.vercel.app",
+            "https://*.vercel.app",  // wildcard now works
             "https://connectly-chat-production.up.railway.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
