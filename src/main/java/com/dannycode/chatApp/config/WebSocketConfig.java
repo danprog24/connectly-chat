@@ -17,13 +17,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/websocket")
-                .setAllowedOriginPatterns(
-                    "http://localhost:5173",
-                    "https://*.vercel.app",
-                    "https://connectly-chat-production.up.railway.app",
-                    "https://*.railway.app"
-                )
-                .withSockJS();
+            .setAllowedOriginPatterns(
+                "http://localhost:5173",
+                "https://*.vercel.app",
+                "https://connectly-chatz-nave.vercel.app", // ✅ add exact URL
+                "https://connectly-chat-production.up.railway.app",
+                "https://*.railway.app"
+            )
+            .withSockJS();
     }
 
     @Override
