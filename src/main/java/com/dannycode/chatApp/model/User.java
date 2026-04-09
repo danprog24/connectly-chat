@@ -50,6 +50,7 @@ public class User {
     @JsonBackReference
     private final Set<ChatRoom> chatRooms = new HashSet<>();
 
+  
     @ManyToMany
     @JoinTable(
         name = "user_friends",

@@ -37,9 +37,9 @@ public class MessageController {
         return ResponseEntity.ok(messages);
     }
 
-    @GetMapping("/unread/count")
-    public ResponseEntity<Integer> getUnreadCount(@AuthenticationPrincipal User user) {
-        int count = messageService.getUnreadCount(user.getUsername());
+   @GetMapping("/unread/count")
+    public ResponseEntity<Integer> getUnreadCount(@AuthenticationPrincipal(expression = "username") String username) {
+        int count = messageService.getUnreadCount(username);
         return ResponseEntity.ok(count);
     }
 

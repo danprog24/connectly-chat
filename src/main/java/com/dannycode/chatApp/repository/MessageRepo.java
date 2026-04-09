@@ -8,9 +8,18 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageRepo extends JpaRepository<Message, Long> {
-    List<Message> findByChatRoomOrderByTimestampAsc(ChatRoom chatRoom);
+    List<Message> findByChatRoomOrderByTimestampAsc(
+        ChatRoom chatRoom
+    );
 
-    // New method to count unread messages for a user across multiple rooms
-    int countChatRoom_NameInAndSender_UsernameNotAndReadFalse(List<String> roomNames, List<String> excludedUsernames);
+    int countByChatRoom_NameInAndSender_UsernameNotAndReadFalse(
+            List<String> roomNames,
+            String usernames
+    );
 
+    // Optional: to exclude multiple usernames
+    int countByChatRoom_NameInAndSender_UsernameNotInAndReadFalse(
+            List<String> roomNames,
+            List<String> usernames
+    );
 }

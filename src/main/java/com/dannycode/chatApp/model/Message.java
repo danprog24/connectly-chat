@@ -34,5 +34,8 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
+    private boolean read; // track if message has been read
+
+    @Column(nullable = false)
     private LocalDateTime timestamp;
 }

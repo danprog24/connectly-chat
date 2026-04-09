@@ -55,20 +55,26 @@ public class MessageService {
         return messageRepo.findByChatRoomOrderByTimestampAsc(room);
     }
 
-    public int getUnreadCount(String username) {
-        User user =userRepo.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("User not found: " + username));
 
-        List <String> roomNames = user.getFriends().stream()
-            .map(friend -> {
-                List<String> names = List.of(user.getUsername(), friend.getUsername());
-                return names.stream().sorted().reduce((a, b) -> a + "_" + b).orElseThrow();
-            })
-            .collect(Collectors.toList());
-        
+    public int getUnreadCount(String username) {
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+
+        List<String> roomNames = user.getFriends().stream()
+                .map(friend -> {
+                    List<String> names = List.of(user.getUsername(), friend.getUsername());
+                    return names.stream().sorted().reduce((a, b) -> a + "_" + b)
+                            .orElseThrow(() -> new RuntimeException("Failed to generate room name"));
+                })
+                .collect(Collectors.toList());
+
         if (roomNames.isEmpty()) return 0;
 
-        return messageRepo.countChatRoom_NameInAndSender_UsernameNotAndReadFalse(roomNames, List.of(username));
+        // Wrap username in a list to match repository method
+        return messageRepo.countByChatRoom_NameInAndSender_UsernameNotAndReadFalse(
+            roomNames,
+            username
+        );
     }
 
 }
