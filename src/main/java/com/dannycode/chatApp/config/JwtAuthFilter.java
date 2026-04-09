@@ -39,7 +39,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
-        // JWT authentication logic here
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             System.out.println("=== Request path: " + request.getRequestURI());
             filterChain.doFilter(request, response);

@@ -2,6 +2,7 @@ package com.dannycode.chatApp.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -53,4 +54,21 @@ public class MessageService {
         ChatRoom room = getOrCreateRoom(roomName); // ✅ create if not exists
         return messageRepo.findByChatRoomOrderByTimestampAsc(room);
     }
+
+    public int getUnreadCount(String username) {
+        User user =userRepo.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("User not found: " + username));
+
+        List <String> roomNames = user.getFriends().stream()
+            .map(friend -> {
+                List<String> names = List.of(user.getUsername(), friend.getUsername());
+                return names.stream().sorted().reduce((a, b) -> a + "_" + b).orElseThrow();
+            })
+            .collect(Collectors.toList());
+        
+        if (roomNames.isEmpty()) return 0;
+
+        return messageRepo.countChatRoom_NameInAndSender_UsernameNotAndReadFalse(roomNames, List.of(username));
+    }
+
 }

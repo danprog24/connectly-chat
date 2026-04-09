@@ -3,9 +3,11 @@ package com.dannycode.chatApp.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.dannycode.chatApp.model.Message;
+import com.dannycode.chatApp.model.User;
 import com.dannycode.chatApp.service.MessageService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,12 @@ public class MessageController {
     public ResponseEntity<List<Message>> getMessagesByRoom(@PathVariable String roomName) {
         java.util.List<Message> messages = messageService.getMessagesByRoom(roomName);
         return ResponseEntity.ok(messages);
+    }
+
+    @GetMapping("/unread/count")
+    public ResponseEntity<Integer> getUnreadCount(@AuthenticationPrincipal User user) {
+        int count = messageService.getUnreadCount(user.getUsername());
+        return ResponseEntity.ok(count);
     }
 
 }

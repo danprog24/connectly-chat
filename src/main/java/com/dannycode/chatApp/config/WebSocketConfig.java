@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
             .setAllowedOriginPatterns(
                 "http://localhost:5173",
                 "https://*.vercel.app",
-                "https://connectly-chatz-nave.vercel.app", // ✅ add exact URL
+                "https://connectly-chatz-nave.vercel.app",
                 "https://connectly-chat-production.up.railway.app",
                 "https://*.railway.app"
             )
