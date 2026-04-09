@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(HttpMethod.OPTIONS, "**").permitAll() // allow CORS preflight requests
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // allow CORS preflight requests
                                 .requestMatchers("/api/auth/**", "/ws/**").permitAll()
                                 .anyRequest().authenticated()
                 )
