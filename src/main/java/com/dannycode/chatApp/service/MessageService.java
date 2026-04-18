@@ -79,7 +79,7 @@ public class MessageService {
 
     @Transactional
     public void markMessagesAsRead(String roomName, String username) {
-    messageRepo.markMessagesAsRead(roomName, username);
-}
+        messageRepo.markMessagesAsRead(roomName, username);
+    }
 
 }
