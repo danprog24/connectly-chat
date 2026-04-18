@@ -37,10 +37,18 @@ public class MessageController {
         return ResponseEntity.ok(messages);
     }
 
-   @GetMapping("/unread/count")
-    public ResponseEntity<Integer> getUnreadCount(@AuthenticationPrincipal(expression = "username") String username) {
-        int count = messageService.getUnreadCount(username);
+    @GetMapping("/unread/count")
+    public ResponseEntity<Integer> getUnreadCount(@AuthenticationPrincipal User user) {
+        int count = messageService.getUnreadCount(user.getUsername());
         return ResponseEntity.ok(count);
+    }
+
+    @PutMapping("/read/{roomName}")
+    public ResponseEntity<Void> markAsRead(
+            @PathVariable String roomName,
+            @AuthenticationPrincipal User user) {
+        messageService.markMessagesAsRead(roomName, user.getUsername());
+        return ResponseEntity.ok().build();
     }
 
 }

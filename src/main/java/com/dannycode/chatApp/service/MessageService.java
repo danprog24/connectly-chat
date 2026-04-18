@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dannycode.chatApp.model.ChatRoom;
 import com.dannycode.chatApp.model.Message;
@@ -70,11 +71,15 @@ public class MessageService {
 
         if (roomNames.isEmpty()) return 0;
 
-        // Wrap username in a list to match repository method
         return messageRepo.countByChatRoom_NameInAndSender_UsernameNotAndReadFalse(
             roomNames,
             username
         );
     }
+
+    @Transactional
+    public void markMessagesAsRead(String roomName, String username) {
+    messageRepo.markMessagesAsRead(roomName, username);
+}
 
 }

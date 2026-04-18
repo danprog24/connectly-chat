@@ -33,8 +33,8 @@ public class Message {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private boolean read; // track if message has been read
+    @Column(name = "read", nullable = false)
+    private boolean read = false; // track if message has been read
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
