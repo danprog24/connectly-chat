@@ -33,7 +33,7 @@ public class Message {
     @Column(nullable = false)
     private String content;
 
-    @Column(name = "read", nullable = false)
+    @Column(name = "is_read", nullable = false)
     private boolean read = false; // track if message has been read
 
     @Column(nullable = false)
